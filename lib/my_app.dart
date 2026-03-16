@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         theme: darkTheme,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoute,
-        initialRoute: AppRoutes.riverpodHome,
+        initialRoute: AppRoutes.providerHome,
       ),
     );
   }

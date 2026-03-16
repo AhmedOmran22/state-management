@@ -45,6 +45,7 @@ class ProductNotifier extends StateNotifier<ProductState> {
 }
 
 final productProvider =
-    StateNotifierProvider.autoDispose<ProductNotifier, ProductState>((ref) {
-      return ProductNotifier(getIt.get<ProductRepo>());
-    });
+    StateNotifierProvider<ProductNotifier, ProductState>((ref) {
+  return ProductNotifier(getIt.get<ProductRepo>())..getProducts();
+});
+// 

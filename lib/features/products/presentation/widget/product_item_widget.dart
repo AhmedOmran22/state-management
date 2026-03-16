@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:state_managemnet_di_newtorking_task/features/products/presentation/widget/favourite_icon_widget.dart';
 import '../../data/models/product_model.dart';
 
 class ProductItem extends StatelessWidget {
@@ -139,7 +138,7 @@ class ProductItem extends StatelessWidget {
             ],
           ),
         ),
-        favoriteWidget ?? FavouriteIconWidget(productId: product.id ?? ""),
+        favoriteWidget ?? const SizedBox(),
       ],
     );
   }
