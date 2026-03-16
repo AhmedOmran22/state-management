@@ -9,11 +9,3 @@ void main() async {
   setupServiceLocator();
   runApp(const MyApp());
 }
-
-class ProductsRepoImpl {
-  // get all products
-  // get all favorite products
-  // add product to favorites
-  // remove product from favorites
-  // get product details (product id)
-}

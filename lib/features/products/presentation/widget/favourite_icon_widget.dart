@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/product_model.dart';
-import '../cubits/product_cubit.dart';
-import '../cubits/product_state.dart';
+import '../cubit/product_cubit.dart';
+import '../ui_state/product_state.dart';
 
 class FavouriteIconWidget extends StatelessWidget {
   final String productId;

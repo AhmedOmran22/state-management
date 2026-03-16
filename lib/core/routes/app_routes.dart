@@ -1,4 +1,5 @@
 abstract class AppRoutes {
-  static const String login = 'login';
-  static const String home = 'home';
+  static const String cubitHome = "cubitHome";
+  static const String providerHome = "providerHome";
+  static const String riverpodHome = "riverpodHome";
 }

@@ -1,26 +1,25 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:state_managemnet_di_newtorking_task/features/products/data/models/product_model.dart';
+import 'package:state_managemnet_di_newtorking_task/features/products/presentation/ui_state/product_state.dart';
+import 'package:state_managemnet_di_newtorking_task/features/products/presentation/provider/product_provider.dart';
+import 'package:state_managemnet_di_newtorking_task/features/products/presentation/widget/provider_favorite_icon.dart';
+import 'package:state_managemnet_di_newtorking_task/features/products/presentation/widget/product_item_widget.dart';
 
-import '../../data/models/product_model.dart';
-import '../cubit/product_cubit.dart';
-import '../ui_state/product_state.dart';
-import 'product_item_widget.dart';
-
-class ProductsListViewBlocBuilder extends StatelessWidget {
-  const ProductsListViewBlocBuilder({super.key});
+class ProviderProductsView extends StatelessWidget {
+  const ProviderProductsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    log("there is rebuild here");
-    return BlocBuilder<ProductCubit, ProductState>(
-      builder: (context, state) {
+    return Consumer<ProductProvider>(
+      builder: (context, provider, child) {
+        final state = provider.state;
+
         switch (state.productsState) {
           case ProductsState.loading:
             return Skeletonizer(
-              enabled: state.productsState == ProductsState.loading,
+              enabled: true,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: 4,
@@ -34,7 +33,7 @@ class ProductsListViewBlocBuilder extends StatelessWidget {
               child: Text(state.errMessage ?? 'Something went wrong'),
             );
           case ProductsState.success:
-            if (state.products!.isEmpty) {
+            if (state.products == null || state.products!.isEmpty) {
               return const Center(child: Text('No products found'));
             }
             return ListView.builder(
@@ -42,7 +41,10 @@ class ProductsListViewBlocBuilder extends StatelessWidget {
               itemCount: state.products!.length,
               itemBuilder: (context, index) {
                 final product = state.products![index];
-                return ProductItem(product: product);
+                return ProductItem(
+                  product: product,
+                  favoriteWidget: ProviderFavoriteIcon(productId: product.id ?? ""),
+                );
               },
             );
         }

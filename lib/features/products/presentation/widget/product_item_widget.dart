@@ -5,8 +5,9 @@ import '../../data/models/product_model.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;
+  final Widget? favoriteWidget;
 
-  const ProductItem({super.key, required this.product});
+  const ProductItem({super.key, required this.product, this.favoriteWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,7 @@ class ProductItem extends StatelessWidget {
     return Stack(
       children: [
         Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 4,
           shadowColor: Colors.black26,
           child: Column(
@@ -27,9 +26,7 @@ class ProductItem extends StatelessWidget {
             children: [
               // Image
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                 child: CachedNetworkImage(
                   imageUrl: product.coverPictureUrl!,
                   width: double.infinity,
@@ -142,7 +139,7 @@ class ProductItem extends StatelessWidget {
             ],
           ),
         ),
-        FavouriteIconWidget(productId: product.id ?? ""),
+        favoriteWidget ?? FavouriteIconWidget(productId: product.id ?? ""),
       ],
     );
   }

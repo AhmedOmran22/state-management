@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:state_managemnet_di_newtorking_task/features/products/presentation/cubits/product_state.dart';
+import 'package:state_managemnet_di_newtorking_task/features/products/presentation/ui_state/product_state.dart';
 import '../../data/models/product_model.dart';
 import '../../data/repos/product_repo.dart';
 
@@ -10,22 +10,8 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> getProducts() async {
     emit(state.copyWith(productsState: ProductsState.loading));
-    // await Future.delayed(const Duration(seconds: 10));
 
     final result = await productRepo.getAllProducts();
-
-    // if (state.products != null) {
-    //   emit(
-    //     state.copyWith(
-    //       productsState: ProductsState.success,
-    //       errMessage: result.fold(
-    //         (failure) => failure.errMessage,
-    //         (products) => null,
-    //       ),
-    //       products: state.products,
-    //     ),
-    //   );
-    // }
 
     result.fold(
       (failure) => emit(
@@ -35,10 +21,7 @@ class ProductCubit extends Cubit<ProductState> {
         ),
       ),
       (products) => emit(
-        state.copyWith(
-          products: products,
-          productsState: ProductsState.success,
-        ),
+        state.copyWith(products: products, productsState: ProductsState.success),
       ),
     );
   }
@@ -58,10 +41,5 @@ class ProductCubit extends Cubit<ProductState> {
       updatedProducts[index].isFavorite = oldValue;
       emit(state.copyWith(products: updatedProducts));
     }, (_) {});
-  }
-
-  Future<void> pagination() async {
-    // request API
-    // emite(state.copyWith(products = state.products + response))
   }
 }
